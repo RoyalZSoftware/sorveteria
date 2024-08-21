@@ -3,7 +3,7 @@
  */
 function uiProductListItem(product) {
   const item = document.createElement("li");
-  item.innerHTML = product.name;
+  item.innerText = product.name;
   return item;
 }
 

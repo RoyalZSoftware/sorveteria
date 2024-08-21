@@ -3,7 +3,7 @@
   padding: 0;
 }
 
-#loading { display: none; position: absolute; background-color: black; width: 100%; height: 100%;}
+#loading { display: none; position: absolute; width: 100%; height: 100%;}
 .loading {
 display: block !important;
 }

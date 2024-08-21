@@ -7,3 +7,4 @@ Follows the keep a changelog convention and semantic versioning.
 - firebase
 - templating
 - navbar
+- mvpcss styling
