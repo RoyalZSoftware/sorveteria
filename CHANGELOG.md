@@ -6,3 +6,4 @@ Follows the keep a changelog convention and semantic versioning.
 ### Added
 - firebase
 - templating
+- navbar
