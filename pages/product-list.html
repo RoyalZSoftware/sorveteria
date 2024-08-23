@@ -63,8 +63,11 @@ async function uiAddProduct(e) {
   } catch(e) {
     if (e === ProductNameIsInvalid)
       Snackbar.open(translate("snackbars.productNameInvalid"), undefined, SNACKBAR_ERROR);
+    else
+      Snackbar.open(e.message, 5000, SNACKBAR_ERROR);
   }
 }
+
 setTimeout(() => uiRefresh(), 300);
 
 </script>
