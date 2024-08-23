@@ -8,3 +8,6 @@ Follows the keep a changelog convention and semantic versioning.
 - templating
 - navbar
 - mvpcss styling
+- i18n
+- html component creation with ui lib
+- snackbar

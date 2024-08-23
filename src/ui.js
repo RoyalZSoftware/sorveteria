@@ -1,29 +1,19 @@
 /**
- * @param {Product} product
+ * Creates an `tag` element with attributes and children
  */
-function uiProductListItem(product) {
-  const item = document.createElement("li");
-  item.innerText = product.name;
-  return item;
-}
-
-function uiAddProduct() {
-  console.log(uiLoading.isLoading);
-  const productName = document.getElementById("product-name");
-  try {
-    const product = newProduct(productName.value);
-    storeProduct(product);
-    uiRefresh();
-    productName.value = "";
-  } catch {}
-}
-
-function uiRefresh() {
-  uiLoading.start();
-  const productsContainer = document.getElementById("products");
-  productsContainer.innerHTML = "";
-  const products = listProducts();
-  products.forEach((product) => productsContainer.appendChild(uiProductListItem(product)));
-  setTimeout(() => uiLoading.stop(), 300);
+function h(tag, attributes, children) {
+  const el = document.createElement(tag);
+  Object.entries(attributes).forEach((pair) => {
+    el.setAttribute(pair[0], pair[1]);
+  });
+  children.forEach((child) => {
+    console.log(child);
+    if (typeof child === 'string') {
+      console.log(child);
+      el.innerHTML += child;
+    } else
+    el.appendChild(child);
+  });
+  return el;
 }
 

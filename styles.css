@@ -8,3 +8,21 @@
 display: block !important;
 }
 
+#snackbar {
+  padding: 8px;
+  border-radius: 4px;
+  position: absolute;
+  right: 50%;
+  left: 50%;
+  max-width: 240px;
+  width: 100%;
+  background-color: black;
+  bottom: 20px;
+  transform: translateX(-50%);
+  visibility: hidden;
+  color: white;
+}
+
+button,input[type="submit"] {
+  padding: 4px;
+}

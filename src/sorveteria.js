@@ -3,10 +3,15 @@
  * @property {string} name
  */
 
-let store = [];
+const ProductNameIsInvalid = new Error("Product name is invalid");
+
+let store = JSON.parse(window.localStorage.getItem('store') ?? '[]');
+let idx = +(window.localStorage.getItem('idx') ?? 0) + 1;
 
 function id() {
-  return store.length == 0 ? 0 : store[store.length - 1].id + 1;
+  const newId = idx++;
+  window.localStorage.setItem('idx', newId);
+  return newId;
 }
 
 /**
@@ -15,19 +20,25 @@ function id() {
  * @returns {Product}
  */
 function newProduct(name) {
-  if (!name) throw new Error("Product name is invalid");
+  if (!name) throw ProductNameIsInvalid;
   return {
     id: id(),
     name,
   };
 }
 
+function save() {
+  window.localStorage.setItem('store', JSON.stringify(store));
+}
+
 function storeProduct(product) {
   store.push(product);
+  save();
 }
 
 function removeProduct(id) {
-  store = store.filter(c => c.id);
+  store = store.filter(c => c.id !== id);
+  save();
 }
 
 function listProducts() {
@@ -42,8 +53,4 @@ function updateProduct(id, product) {
   const found = findProduct(id);
   removeProduct(id);
   storeProduct({id, ...found, ...product});
-}
-
-
-function createSorveteria() {
 }

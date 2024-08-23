@@ -1,8 +1,69 @@
-Hallo product list
-
-<form action="#">
-<input type="text" id="product-name" />
-<input type="submit" onclick="uiAddProduct()" value="Erstellen"/>
+<style>
+  .product-item {
+    display: flex;
+    justify-content: space-between;
+  }
+</style>
+<form onsubmit="uiAddProduct(event)">
+	<input type="text" id="product-name" />
+	<input type="submit" value="Erstellen"/>
 </form>
+<h1 i18n="page.productList"></h1>
 <ul id="products">
 </ul>
+
+<script type="text/javascript">
+addTranslations({
+  page: {
+    productList: "Todos produtos"
+  },
+  snackbars: {
+    productRemoved: "O produto com {id} foi excluído",
+    productAdded: "O produto {name} foi criado.",
+    productNameInvalid: "Digite um nome."
+  },
+});
+
+
+function uiRefresh() {
+  uiLoading.start();
+  const productsContainer = document.getElementById("products");
+  productsContainer.innerHTML = "";
+  const products = listProducts();
+  products.forEach((product) => productsContainer.appendChild(uiProductListItem(product)));
+  setTimeout(() => uiLoading.stop(), 300);
+}
+
+function uiRemove(id) {
+  removeProduct(id);
+  Snackbar.open(translate("snackbars.productRemoved", {id: id}));
+  uiRefresh();
+}
+
+/**
+ * @param {Product} product
+ */
+function uiProductListItem(product) {
+  return h('li', {class: "product-item"}, [
+    product.id + " " + product.name,
+    h('button', {onclick: 'uiRemove(' + product.id + ')'}, ["Delete"])
+  ]);
+}
+
+function uiAddProduct(e) {
+  e.preventDefault();
+  const productName = document.getElementById("product-name");
+  try {
+    const product = newProduct(productName.value);
+    storeProduct(product);
+    productName.value = "";
+    Snackbar.open(translate("snackbars.productAdded", {name: product.name}));
+    uiRefresh();
+  } catch(e) {
+    if (e === ProductNameIsInvalid)
+      Snackbar.open(translate("snackbars.productNameInvalid"), undefined, SNACKBAR_ERROR);
+  }
+}
+uiRefresh();
+
+</script>

@@ -1,5 +1,8 @@
 #!/bin/sh
 
+rm -r dist || true
+mkdir -p dist || true
+
 x() {
   sed '/<content\/>/ {
         r '"$1"'

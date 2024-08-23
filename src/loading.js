@@ -1,4 +1,5 @@
 const element = document.getElementById("loading");
+
 const uiLoading = {
   isLoading: false,
   start: () => {
