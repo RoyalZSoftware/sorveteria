@@ -25,17 +25,18 @@ addTranslations({
 });
 
 
-function uiRefresh() {
+async function uiRefresh() {
   uiLoading.start();
   const productsContainer = document.getElementById("products");
   productsContainer.innerHTML = "";
-  const products = listProducts();
+  const products = await listProducts();
+  console.log(products);
   products.forEach((product) => productsContainer.appendChild(uiProductListItem(product)));
   setTimeout(() => uiLoading.stop(), 300);
 }
 
-function uiRemove(id) {
-  removeProduct(id);
+async function uiRemove(id) {
+  await removeProduct(id);
   Snackbar.open(translate("snackbars.productRemoved", {id: id}));
   uiRefresh();
 }
@@ -50,20 +51,20 @@ function uiProductListItem(product) {
   ]);
 }
 
-function uiAddProduct(e) {
+async function uiAddProduct(e) {
   e.preventDefault();
   const productName = document.getElementById("product-name");
   try {
     const product = newProduct(productName.value);
-    storeProduct(product);
+    await storeProduct(product);
     productName.value = "";
     Snackbar.open(translate("snackbars.productAdded", {name: product.name}));
-    uiRefresh();
+    await uiRefresh();
   } catch(e) {
     if (e === ProductNameIsInvalid)
       Snackbar.open(translate("snackbars.productNameInvalid"), undefined, SNACKBAR_ERROR);
   }
 }
-uiRefresh();
+setTimeout(() => uiRefresh(), 300);
 
 </script>

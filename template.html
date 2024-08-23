@@ -17,17 +17,22 @@ navbar
 <script type="module">
     import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js'
 
-    // Add Firebase products that you want to use
     import { getAuth } from 'https://www.gstatic.com/firebasejs/10.9.0/firebase-auth.js'
-    import { getFirestore } from 'https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore.js'
+    import { getFirestore, doc, getDoc, getDocs, query, collection, where } from 'https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore.js'
 
-    // TODO: Replace the following with your app's Firebase project configuration
     const firebaseConfig = {
-      // ...
+      apiKey: "AIzaSyAzHmqkEOhEqxdUeWQVg1aaVnHZLo3Jn5M",
+      authDomain: "sorveteria-efd8a.firebaseapp.com",
+      projectId: "sorveteria-efd8a",
+      storageBucket: "sorveteria-efd8a.appspot.com",
+      messagingSenderId: "756522755597",
+      appId: "1:756522755597:web:711a71dbe08adf2c6cd744"
     };
 
-    // Initialize Firebase
     const app = initializeApp(firebaseConfig);
+    Object.defineProperty(window, "firebase", {
+       get() { return {app, getFirestore, getAuth, doc, getDoc, query, collection, where, getDocs}; },
+    });
 </script>
 <script type="text/javascript" src="./i18n.js"></script>
 <script type="text/javascript" src="./loading.js"></script>
@@ -37,7 +42,9 @@ navbar
 <content/>
 
 <div id="snackbar"></div>
-<script type="text/javascript">translateDirectives()</script>
+<script type="text/javascript">
+translateDirectives();
+</script>
 
 </body>
 </html>

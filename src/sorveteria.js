@@ -5,15 +5,6 @@
 
 const ProductNameIsInvalid = new Error("Product name is invalid");
 
-let store = JSON.parse(window.localStorage.getItem('store') ?? '[]');
-let idx = +(window.localStorage.getItem('idx') ?? 0) + 1;
-
-function id() {
-  const newId = idx++;
-  window.localStorage.setItem('idx', newId);
-  return newId;
-}
-
 /**
  * @param {string} id
  * @param {string} name
@@ -27,29 +18,25 @@ function newProduct(name) {
   };
 }
 
-function save() {
-  window.localStorage.setItem('store', JSON.stringify(store));
-}
-
-function storeProduct(product) {
+async function storeProduct(product) {
   store.push(product);
-  save();
 }
 
-function removeProduct(id) {
+async function removeProduct(id) {
   store = store.filter(c => c.id !== id);
-  save();
 }
 
-function listProducts() {
-  return store;
+async function listProducts() {
+  const db = window.firebase.getFirestore(window.firebase.app);
+  const q = window.firebase.query(window.firebase.collection(db, "products"));
+  return window.firebase.getDocs(q);
 }
 
-function findProduct(id) {
+async function findProduct(id) {
   return store.find(c => c.id == id);
 }
 
-function updateProduct(id, product) {
+async function updateProduct(id, product) {
   const found = findProduct(id);
   removeProduct(id);
   storeProduct({id, ...found, ...product});
