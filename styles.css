@@ -66,8 +66,9 @@ ul {
   overflow-y: auto;
 }
 
-ul, li {
+li {
   list-style-type: none;
+  padding: 8px;
 }
 
 body {
@@ -92,6 +93,7 @@ nav {
   height: var(---height);
   z-index: 4;
 }
+
 nav > ul {
   height: 100%;
   display: flex;

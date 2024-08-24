@@ -2,11 +2,12 @@
   .product-item {
     display: flex;
     justify-content: space-between;
-    padding: 4px;
+    padding: 16px 0px 16px 0px;
   }
   .product-item > a {
     background-color: none;
     color: blue;
+    cursor: pointer;
   }
 </style>
 <form onsubmit="uiAddProduct(event)">
@@ -22,10 +23,13 @@ addTranslations({
   page: {
     productList: "Todos produtos"
   },
+  prompts: {
+    reallyDelete: "Ta certa para excluído {id}?"
+  },
   snackbars: {
     productRemoved: "O produto com id {id} foi excluído",
     productAdded: "O produto {name} foi criado.",
-    productNameInvalid: "Digite um nome."
+    productNameInvalid: "Digite um nome valido."
   },
 });
 
@@ -46,7 +50,7 @@ async function uiDelete(id) {
 }
 
 async function uiBuildConfirm(id) {
-  return h('div', {}, ['Are you sure that you want to delete ' + id + '?', h('button', {onclick: `uiDelete('${id}')`}, ['Yes'])]);
+  return h('div', {}, [translate('prompts.reallyDelete', {id: id}), h('button', {onclick: `uiDelete('${id}')`}, ['Yes'])]);
 }
 
 async function uiPromptDelete(id) {
