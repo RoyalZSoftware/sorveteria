@@ -24,10 +24,10 @@ addTranslations({
     productList: "Todos produtos"
   },
   prompts: {
-    reallyDelete: "Ta certa para excluído {id}?"
+    reallyDelete: "Ta certa para excluído {name}?"
   },
   snackbars: {
-    productRemoved: "O produto com id {id} foi excluído",
+    productRemoved: "O produto {name} foi excluído",
     productAdded: "O produto {name} foi criado.",
     productNameInvalid: "Digite um nome valido."
   },
@@ -41,32 +41,32 @@ async function uiRefresh() {
   products.forEach((product) => productsContainer.appendChild(uiProductListItem({id: product.id, ...product.data()})));
 }
 
-async function uiDelete(id) {
+async function uiDelete(id, name) {
   await removeProduct(id);
-  Snackbar.open(translate("snackbars.productRemoved", {id: id}));
+  Snackbar.open(translate("snackbars.productRemoved", {name}));
   await uiRefresh();
   Sheet.collapse();
-  Sheet.hide();
+  setTimeout(() => Sheet.hide(), 300);
 }
 
-async function uiBuildConfirm(id) {
-  return h('div', {}, [translate('prompts.reallyDelete', {id: id}), h('button', {onclick: `uiDelete('${id}')`}, ['Yes'])]);
+async function uiBuildConfirm(id, name) {
+  return h('div', {}, [translate('prompts.reallyDelete', {name}), h('button', {onclick: `uiDelete('${id}', '${name}')`}, ['Yes'])]);
 }
 
-async function uiPromptDelete(id) {
-  const c = await uiBuildConfirm(id);
+async function uiPromptDelete(id, name) {
+  const c = await uiBuildConfirm(id, name);
   Sheet.render(c);
   Sheet.show();
-  Sheet.expand();
+  setTimeout(() => Sheet.draw(), 10);
 }
 
 /**
  * @param {Product} product
  */
 function uiProductListItem(product) {
-  return h('li', {class: "product-item"}, [
+  return h('li', {class: "product-item", productName: product.name}, [
     product.name,
-    h('a', {onclick: 'uiPromptDelete("' + product.id + '")'}, ["Delete"])
+    h('a', {onclick: 'uiPromptDelete("' + product.id + '", "' + product.name + '")'}, ["Delete"])
   ]);
 }
 

@@ -8,7 +8,6 @@ function initializeSheet(sheetEl) {
   const sheetContent = sheetEl.querySelector('[sheet-content]');
 
   const percentFromClientY = (clientY) => {
-    console.log(window);
     const totalHeight = window.innerHeight;
     const percent = 1 - ((clientY - 32)/ totalHeight);
 
@@ -31,7 +30,6 @@ function initializeSheet(sheetEl) {
     ev.preventDefault();
     const mouseMove = (e) => {
       position = percentFromClientY(e.clientY) * 100;
-      console.log("Moving mouse", percentFromClientY(e.clientY));
       sheetEl.style.transform = `translateY(${100 - percentFromClientY(e.clientY) * 100}%)`;
     }
     const mouseUp = (e) => {
