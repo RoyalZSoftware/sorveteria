@@ -4,21 +4,18 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/purecss@3.0.0/build/pure-min.css" integrity="sha384-X38yfunGUhNzHpBaEBsWLO+A0HDYOQi8ufWDkZ0k9e0eXz/tH3II7uKZ9msv++Ls" crossorigin="anonymous">
   <link href="./styles.css" type="text/css" rel="stylesheet"/>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
 </head>
 <body>
 <div id="loading"></div>
-<nav>
-<ul>
-navbar
-<li><a href="./product-list.html">Product List</a></li>
-</ul>
-</nav>
 
 <script type="module">
     import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js'
 
     import { getAuth } from 'https://www.gstatic.com/firebasejs/10.9.0/firebase-auth.js'
-    import { getFirestore, doc, getDoc, getDocs, query, collection, where } from 'https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore.js'
+    import { getFirestore, doc, getDoc, getDocs, query, collection, where, setDoc, addDoc } from 'https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore.js'
 
     const firebaseConfig = {
       apiKey: "AIzaSyAzHmqkEOhEqxdUeWQVg1aaVnHZLo3Jn5M",
@@ -31,7 +28,7 @@ navbar
 
     const app = initializeApp(firebaseConfig);
     Object.defineProperty(window, "firebase", {
-       get() { return {app, getFirestore, getAuth, doc, getDoc, query, collection, where, getDocs}; },
+       get() { return {app, getFirestore, getAuth, doc, getDoc, query, collection, where, getDocs, setDoc, addDoc}; },
     });
 </script>
 <script type="text/javascript" src="./i18n.js"></script>
@@ -39,11 +36,29 @@ navbar
 <script type="text/javascript" src="./ui.js"></script>
 <script type="text/javascript" src="./sorveteria.js"></script>
 <script type="text/javascript" src="./snackbar.js"></script>
+<script type="text/javascript" src="./sheet.js"></script>
+<main>
 <content/>
+</main>
+
+<div id="sheet">
+  <div sheet-handle>
+    <div id="sheet-thumb"></div>
+  </div>
+  <div sheet-content></div>
+</div>
+
+<nav>
+<ul>
+<li><a href="./product-list.html">Product List</a></li>
+<li><a href="./reporting.html">Reporting</a></li>
+</ul>
+</nav>
 
 <div id="snackbar"></div>
 <script type="text/javascript">
 translateDirectives();
+const Sheet = initializeSheet(document.getElementById("sheet"));
 </script>
 
 </body>

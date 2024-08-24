@@ -2,6 +2,11 @@
   .product-item {
     display: flex;
     justify-content: space-between;
+    padding: 4px;
+  }
+  .product-item > a {
+    background-color: none;
+    color: blue;
   }
 </style>
 <form onsubmit="uiAddProduct(event)">
@@ -18,7 +23,7 @@ addTranslations({
     productList: "Todos produtos"
   },
   snackbars: {
-    productRemoved: "O produto com {id} foi excluído",
+    productRemoved: "O produto com id {id} foi excluído",
     productAdded: "O produto {name} foi criado.",
     productNameInvalid: "Digite um nome."
   },
@@ -26,19 +31,29 @@ addTranslations({
 
 
 async function uiRefresh() {
-  uiLoading.start();
   const productsContainer = document.getElementById("products");
-  productsContainer.innerHTML = "";
   const products = await listProducts();
-  console.log(products);
-  products.forEach((product) => productsContainer.appendChild(uiProductListItem(product)));
-  setTimeout(() => uiLoading.stop(), 300);
+  productsContainer.innerHTML = "";
+  products.forEach((product) => productsContainer.appendChild(uiProductListItem({id: product.id, ...product.data()})));
 }
 
-async function uiRemove(id) {
+async function uiDelete(id) {
   await removeProduct(id);
   Snackbar.open(translate("snackbars.productRemoved", {id: id}));
-  uiRefresh();
+  await uiRefresh();
+  Sheet.collapse();
+  Sheet.hide();
+}
+
+async function uiBuildConfirm(id) {
+  return h('div', {}, ['Are you sure that you want to delete ' + id + '?', h('button', {onclick: `uiDelete('${id}')`}, ['Yes'])]);
+}
+
+async function uiPromptDelete(id) {
+  const c = await uiBuildConfirm(id);
+  Sheet.render(c);
+  Sheet.show();
+  Sheet.expand();
 }
 
 /**
@@ -46,8 +61,8 @@ async function uiRemove(id) {
  */
 function uiProductListItem(product) {
   return h('li', {class: "product-item"}, [
-    product.id + " " + product.name,
-    h('button', {onclick: 'uiRemove(' + product.id + ')'}, ["Delete"])
+    product.name,
+    h('a', {onclick: 'uiPromptDelete("' + product.id + '")'}, ["Delete"])
   ]);
 }
 
@@ -68,6 +83,6 @@ async function uiAddProduct(e) {
   }
 }
 
-setTimeout(() => uiRefresh(), 300);
+setTimeout(() => {uiRefresh()}, 300);
 
 </script>

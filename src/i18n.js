@@ -10,7 +10,7 @@ function translate(key, params = {}) {
   const paths = key.split('.');
   let translation = translations[paths[0]];
   console.log(translation);
-  for (let i = 1; i < paths.length; i++) {
+  for (let i = 1; i < paths.length; i++) {
     translation = translation[paths[i]];
   }
 

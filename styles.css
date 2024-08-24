@@ -1,4 +1,39 @@
+:root {
+  --primary: #CD5C08;
+  --secondary: #C1D8C3;
+  --secondary-dark: #6A9C89;
+  --highlight: #FFF5E4;
+  --navbar-height: 80px;
+}
+
+#sheet {
+  position: absolute;
+  bottom: 0;
+  width: 100vw;
+  background-color: var(--secondary-dark);
+  height: 100vh;
+  transform: translateY(calc(100% - var(--navbar-height) - 16px));
+  border-radius: 16px;
+}
+
+div[sheet-content] {
+  padding: 0 16px 16px 16px;
+}
+
+#sheet > div[sheet-handle] {
+  padding: 0px 16px 16px 16px;
+}
+
+#sheet-thumb {
+  background-color: white;
+  height: 8px;
+  border-radius: 8px;
+  margin: 16px;
+}
+
 * {
+  box-sizing: border-box;
+  font-family: "Lato", system-ui;
   margin: 0;
   padding: 0;
 }
@@ -14,10 +49,10 @@ display: block !important;
   position: absolute;
   right: 50%;
   left: 50%;
-  max-width: 240px;
+  max-width: calc(100vw - 80px);
   width: 100%;
   background-color: black;
-  bottom: 20px;
+  bottom: calc(var(--navbar-height) + 8px);
   transform: translateX(-50%);
   visibility: hidden;
   color: white;
@@ -26,3 +61,41 @@ display: block !important;
 button,input[type="submit"] {
   padding: 4px;
 }
+
+ul {
+  overflow-y: auto;
+}
+
+ul, li {
+  list-style-type: none;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  padding: 16px;
+  height: calc(100vh - var(--navbar-height));
+}
+
+nav {
+  background-color: var(--secondary);
+  padding: 16px;
+  width: 100%;
+  height: var(---height);
+  z-index: 4;
+}
+nav > ul {
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+

@@ -1,43 +1,41 @@
 /**
  * @typedef {Object} Product
  * @property {string} name
+ * @property {Date | null} deleted_at
  */
 
 const ProductNameIsInvalid = new Error("Product name is invalid");
 
 /**
- * @param {string} id
  * @param {string} name
+ * @param {boolean} deleted_at
  * @returns {Product}
  */
 function newProduct(name) {
-  if (!name) throw ProductNameIsInvalid;
+  if (!name || name.length < 3 || name.length > 128) throw ProductNameIsInvalid;
   return {
-    id: id(),
     name,
+    deleted_at: null,
   };
 }
 
 async function storeProduct(product) {
-  store.push(product);
+  const db = window.firebase.getFirestore(window.firebase.app);
+  window.firebase.addDoc(window.firebase.collection(db, "products"), {
+    ...product
+  });
 }
 
 async function removeProduct(id) {
-  store = store.filter(c => c.id !== id);
+  const db = window.firebase.getFirestore(window.firebase.app);
+  return window.firebase.setDoc(window.firebase.doc(db, "products", id), {
+    deleted_at: new Date(),
+  }, {merge: true});
 }
 
 async function listProducts() {
   const db = window.firebase.getFirestore(window.firebase.app);
-  const q = window.firebase.query(window.firebase.collection(db, "products"));
+  const q = window.firebase.query(window.firebase.collection(db, "products"), window.firebase.where("deleted_at", "==", null));
   return window.firebase.getDocs(q);
 }
 
-async function findProduct(id) {
-  return store.find(c => c.id == id);
-}
-
-async function updateProduct(id, product) {
-  const found = findProduct(id);
-  removeProduct(id);
-  storeProduct({id, ...found, ...product});
-}

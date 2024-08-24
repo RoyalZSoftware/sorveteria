@@ -7,9 +7,7 @@ function h(tag, attributes, children) {
     el.setAttribute(pair[0], pair[1]);
   });
   children.forEach((child) => {
-    console.log(child);
     if (typeof child === 'string') {
-      console.log(child);
       el.innerHTML += child;
     } else
     el.appendChild(child);
