@@ -1,5 +1,6 @@
 :root {
   --background: #fbfbfe;
+  --background-contrast: #eeeef2;
   --primary: #2f27ce;
   --secondary: #dedcff;
   --accent: #433bff;
@@ -109,7 +110,7 @@ main {
 
 nav {
   box-shadow: 8px 4px 4px var(--accent);
-  background-color: #eeeef2;
+  background-color: var(--background-contrast);
   padding: 8px;
   width: 100%;
   height: var(---height);
@@ -137,5 +138,18 @@ nav > ul {
   width: 24px;
   height: 24px;
   margin-bottom: 4px;
+}
+
+input {
+  border: none;
+  background-color: var(--background-contrast);
+  border-bottom: 2px solid var(--secondary);
+  padding: 8px;
+  outline: none;
+  transition: 0.3s all;
+}
+
+input:focus {
+  border-bottom: 2px solid var(--accent);
 }
 
