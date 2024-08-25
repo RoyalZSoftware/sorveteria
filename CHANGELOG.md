@@ -12,3 +12,4 @@ Follows the keep a changelog convention and semantic versioning.
 - html component creation with ui lib
 - snackbar
 - sheet for prompting
+- login guard

@@ -32,8 +32,9 @@ addTranslations({
     productNameInvalid: "Digite um nome valido."
   },
 });
+</script>
 
-
+<script type="text/javascript">
 async function uiRefresh() {
   const productsContainer = document.getElementById("products");
   const products = await listProducts();
@@ -43,10 +44,10 @@ async function uiRefresh() {
 
 async function uiDelete(id, name) {
   await removeProduct(id);
-  Snackbar.open(translate("snackbars.productRemoved", {name}));
-  await uiRefresh();
   Sheet.collapse();
   setTimeout(() => Sheet.hide(), 300);
+  Snackbar.open(translate("snackbars.productRemoved", {name}));
+  await uiRefresh();
 }
 
 async function uiBuildConfirm(id, name) {
@@ -87,6 +88,6 @@ async function uiAddProduct(e) {
   }
 }
 
-setTimeout(() => {uiRefresh()}, 300);
+uiRefresh();
 
 </script>

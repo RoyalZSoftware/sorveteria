@@ -20,22 +20,17 @@ function newProduct(name) {
 }
 
 async function storeProduct(product) {
-  const db = window.firebase.getFirestore(window.firebase.app);
-  window.firebase.addDoc(window.firebase.collection(db, "products"), {
-    ...product
-  });
+  const db = firebase.firestore();
+  return db.collection("products").add(product);
 }
 
 async function removeProduct(id) {
-  const db = window.firebase.getFirestore(window.firebase.app);
-  return window.firebase.setDoc(window.firebase.doc(db, "products", id), {
-    deleted_at: new Date(),
-  }, {merge: true});
+  const db = firebase.firestore();
+  return db.collection("products").doc(id).update({deleted_at: new Date()});
 }
 
 async function listProducts() {
-  const db = window.firebase.getFirestore(window.firebase.app);
-  const q = window.firebase.query(window.firebase.collection(db, "products"), window.firebase.where("deleted_at", "==", null));
-  return window.firebase.getDocs(q);
+  const db = firebase.firestore();
+  return db.collection("products").where("deleted_at", "!=", null).get();
 }
 

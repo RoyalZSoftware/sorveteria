@@ -12,12 +12,11 @@
 <body>
 <div id="loading"></div>
 
-<script type="module">
-    import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js'
+  <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-auth-compat.js"></script>
 
-    import { getAuth } from 'https://www.gstatic.com/firebasejs/10.9.0/firebase-auth.js'
-    import { getFirestore, doc, getDoc, getDocs, query, collection, where, setDoc, addDoc } from 'https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore.js'
-
+<script type="text/javascript">
     const firebaseConfig = {
       apiKey: "AIzaSyAzHmqkEOhEqxdUeWQVg1aaVnHZLo3Jn5M",
       authDomain: "sorveteria-efd8a.firebaseapp.com",
@@ -27,10 +26,7 @@
       appId: "1:756522755597:web:711a71dbe08adf2c6cd744"
     };
 
-    const app = initializeApp(firebaseConfig);
-    Object.defineProperty(window, "firebase", {
-       get() { return {app, getFirestore, getAuth, doc, getDoc, query, collection, where, getDocs, setDoc, addDoc}; },
-    });
+    const firebaseApp = firebase.initializeApp(firebaseConfig);
 </script>
 <script type="text/javascript" src="./i18n.js"></script>
 <script type="text/javascript" src="./loading.js"></script>
@@ -38,6 +34,7 @@
 <script type="text/javascript" src="./sorveteria.js"></script>
 <script type="text/javascript" src="./snackbar.js"></script>
 <script type="text/javascript" src="./sheet.js"></script>
+<script type="text/javascript" src="./login-guard.js"></script>
 <main>
 <content/>
 </main>
