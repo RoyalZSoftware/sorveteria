@@ -7,7 +7,6 @@
   }
   .product-item > a {
     background-color: none;
-    color: var(--primary);
     cursor: pointer;
   }
   button, input[type="submit"] {
@@ -90,7 +89,7 @@ async function uiDelete(id, name) {
 }
 
 async function uiBuildConfirm(id, name) {
-  return h('div', {}, [translate('prompts.reallyDelete', {name}), h('button', {onclick: `uiDelete('${id}', '${name}')`}, ['Sím'])]);
+  return h('div', {}, [translate('prompts.reallyDelete', {name}), h('button', {onclick: `uiDelete('${id}', '${name}')`, class: 'warn'}, ['Sím'])]);
 }
 
 async function uiPromptDelete(id, name) {
@@ -106,7 +105,7 @@ async function uiPromptDelete(id, name) {
 function uiProductListItem(product) {
   return h('li', {class: "product-item", productName: product.name}, [
     product.name,
-    h('a', {onclick: 'uiPromptDelete("' + product.id + '", "' + product.name + '")'}, ["Excludío"])
+    h('a', {onclick: 'uiPromptDelete("' + product.id + '", "' + product.name + '")', class: 'warn'}, ["Excludío"])
   ]);
 }
 

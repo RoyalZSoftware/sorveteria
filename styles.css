@@ -6,6 +6,7 @@
   --accent: #433bff;
   --navbar-height: 96px;
   --text: #050315;
+  --warn: red;
 }
 
 #sheet {
@@ -153,3 +154,11 @@ input:focus {
   border-bottom: 2px solid var(--accent);
 }
 
+.warn {
+  color: var(--warn);
+}
+
+button.warn {
+  color: white;
+  background-color: var(--warn);
+}
