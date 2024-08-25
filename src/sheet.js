@@ -46,7 +46,7 @@ function initializeSheet(sheetEl) {
 
   const dockTo = (dockPoint) => {
     sheetEl.style.transition = 'transform 0.3s';
-    const handleSize = dockPoint != 100 ? 16 + 80: 0;
+    const handleSize = dockPoint != 100 ? 16 + 96: 0;
     sheetEl.style.transform = `translateY(calc(${100 - dockPoint}% - ${handleSize}px))`;
   };
 

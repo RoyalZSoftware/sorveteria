@@ -1,0 +1,17 @@
+
+
+Profile: <span id="username"></span>
+
+<button onclick="uiLogout()">Logout</button>
+
+<script type="text/javascript">
+addLoginGuard();
+firebase.auth().onAuthStateChanged(user => {
+if (user)
+  document.getElementById("username").innerHTML = user.displayName;
+});
+
+function uiLogout() {
+  firebase.auth().signOut();
+}
+</script>

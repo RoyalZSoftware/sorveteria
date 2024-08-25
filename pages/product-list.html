@@ -2,16 +2,36 @@
   .product-item {
     display: flex;
     justify-content: space-between;
+    border-bottom: 1px solid lightgrey;
     padding: 16px 0px 16px 0px;
   }
   .product-item > a {
     background-color: none;
-    color: blue;
+    color: var(--primary);
     cursor: pointer;
   }
+  button, input[type="submit"] {
+    background: var(--accent);
+    border-radius: 4px;
+    width: fit-content;
+    padding: 8px;
+    color: white;
+    border: none;
+  }
+  #new {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
 </style>
+<script type="text/javascript">
+addLoginGuard();
+</script>
+<div style="position: relative">
 <h1 i18n="page.productList"></h1>
-<button onclick="uiOpenCreateProduct()">New product</button>
+<button id="new" onclick="uiOpenCreateProduct()">+ Novo</button>
+</div>
+<input type="text" id="searchbar" onkeyup="uiSearch()"/>
 <ul id="products">
 </ul>
 
@@ -35,19 +55,38 @@ addTranslations({
 </script>
 
 <script type="text/javascript">
+const SEARCH_DEBOUNCE = 800;
+
+let filter = {};
+let searchTimeout;
+
+async function uiSearch() {
+  if (searchTimeout) {
+    clearTimeout(searchTimeout);
+  }
+  searchTimeout = setTimeout(async () => {
+    filter = {...filter, query: document.getElementById("searchbar").value};
+    uiLoading.start();
+    await uiRefresh();
+    uiLoading.stop();
+  }, SEARCH_DEBOUNCE);
+}
+
 async function uiRefresh() {
   const productsContainer = document.getElementById("products");
-  const products = await listProducts();
+  const products = await listProducts(filter);
   productsContainer.innerHTML = "";
   products.forEach((product) => productsContainer.appendChild(uiProductListItem({id: product.id, ...product.data()})));
 }
 
 async function uiDelete(id, name) {
+  uiLoading.start();
   await removeProduct(id);
   Sheet.collapse();
   setTimeout(() => Sheet.hide(), 300);
-  Snackbar.open(translate("snackbars.productRemoved", {name}));
   await uiRefresh();
+  uiLoading.stop();
+  Snackbar.open(translate("snackbars.productRemoved", {name}));
 }
 
 async function uiBuildConfirm(id, name) {
@@ -77,12 +116,13 @@ async function uiOpenCreateProduct() {
     h('input', {type: 'submit'}, [translate('buttons.create')])
   ])]);
   Sheet.render(component);
-  Sheet.expand();
+  Sheet.draw();
   Sheet.show();
 }
 
 async function uiAddProduct(e) {
   e.preventDefault();
+  uiLoading.start();
   const productName = document.getElementById("product-name");
   try {
     const product = newProduct(productName.value);
@@ -90,9 +130,11 @@ async function uiAddProduct(e) {
     productName.value = "";
     Snackbar.open(translate("snackbars.productAdded", {name: product.name}));
     await uiRefresh();
+    uiLoading.stop();
     Sheet.collapse();
     Sheet.hide();
   } catch(e) {
+    uiLoading.stop();
     if (e === ProductNameIsInvalid)
       Snackbar.open(translate("snackbars.productNameInvalid"), undefined, SNACKBAR_ERROR);
     else
@@ -100,6 +142,12 @@ async function uiAddProduct(e) {
   }
 }
 
-uiRefresh();
+async function init() {
+uiLoading.start();
+await uiRefresh();
+uiLoading.stop();
+}
+
+init();
 
 </script>

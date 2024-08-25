@@ -1,1 +1,10 @@
-Hallo from login
+<script>
+const REDIRECT_URL = './product-list.html';
+firebaseApp.auth().onAuthStateChanged((state) => {
+  if (state !== null)
+    window.location.href = REDIRECT_URL;
+});
+
+</script>
+
+<button onclick="loginWithGoogle()">Sign in with google</button>

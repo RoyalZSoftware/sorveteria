@@ -14,3 +14,5 @@ Follows the keep a changelog convention and semantic versioning.
 - sheet for prompting
 - login guard
 - creating a new product is now done via the sheet
+- search for products
+- login

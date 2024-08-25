@@ -5,13 +5,17 @@
   <link href="./styles.css" type="text/css" rel="stylesheet"/>
   <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta charset="utf-8">
+<link rel="manifest" href="manifest.json" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="manifest" href="manifest.json" />
-<link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
 </head>
 <body>
-<div id="loading"></div>
+<div id="loading">
+  <div class="loading-spinner-container">
+<svg width="60" height="60" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><style>.spinner_P7sC{transform-origin:center;animation:spinner_svv2 .75s infinite linear}@keyframes spinner_svv2{100%{transform:rotate(360deg)}}</style><path d="M10.14,1.16a11,11,0,0,0-9,8.92A1.59,1.59,0,0,0,2.46,12,1.52,1.52,0,0,0,4.11,10.7a8,8,0,0,1,6.66-6.61A1.42,1.42,0,0,0,12,2.69h0A1.57,1.57,0,0,0,10.14,1.16Z" class="spinner_P7sC"/></svg>
+  </div>
+</div>
 
   <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore-compat.js"></script>
@@ -28,6 +32,7 @@
     };
 
     const firebaseApp = firebase.initializeApp(firebaseConfig);
+    firebase.firestore().enablePersistence();
 </script>
 <script type="text/javascript" src="./i18n.js"></script>
 <script type="text/javascript" src="./loading.js"></script>
@@ -49,9 +54,9 @@
 
 <nav>
 <ul>
-<li><a href="./product-list.html">Produtos</a></li>
-<li><a href="./reporting.html"><img src="./assets/reporting.svg"/>Relatórios</a></li>
-<li><a href="./cart.html">Carrinho</a></li>
+<li><a href="./product-list.html" class="nav-item"><img src="./assets/ice.svg" width="24px" height="24px"/>Produtos</a></li>
+<li><a href="./reporting.html" class="nav-item"><img src="./assets/reporting.svg" width="24px" height="24px"/>Relatórios</a></li>
+<li><a href="./cart.html" class="nav-item"><img src="./assets/reporting.svg" width="24px" height="24px"/>Carrinho</a></li>
 </ul>
 </nav>
 

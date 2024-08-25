@@ -11,7 +11,7 @@ const Snackbar = {
     snackbar.style.visibility = 'visible';
 
     if (type === SNACKBAR_SUCCESS) {
-      snackbar.style.backgroundColor = 'green';
+      snackbar.style.backgroundColor = '#388e3c';
     } else if (type === SNACKBAR_ERROR) {
       snackbar.style.backgroundColor = 'red';
     }

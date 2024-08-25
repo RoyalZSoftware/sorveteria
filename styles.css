@@ -1,16 +1,16 @@
 :root {
-  --primary: #CD5C08;
-  --secondary: #C1D8C3;
-  --secondary-dark: #6A9C89;
-  --highlight: #FFF5E4;
-  --navbar-height: 80px;
+  --background: #fbfbfe;
+  --primary: #2f27ce;
+  --secondary: #dedcff;
+  --accent: #433bff;
+  --navbar-height: 96px;
 }
 
 #sheet {
   position: absolute;
   bottom: 0;
   width: 100vw;
-  background-color: var(--secondary-dark);
+  background-color: var(--secondary);
   height: 100vh;
   transform: translateY(calc(100% - var(--navbar-height) - 16px));
   border-radius: 16px;
@@ -25,22 +25,39 @@ div[sheet-content] {
 }
 
 #sheet-thumb {
-  background-color: white;
+  background-color: var(--background);
   height: 8px;
   border-radius: 8px;
   margin: 16px;
 }
 
 * {
+  color: #050315;
   box-sizing: border-box;
-  font-family: "Lato", system-ui;
+  font-family: "Inter", sans-serif !important;
   margin: 0;
   padding: 0;
 }
 
-#loading { display: none; position: absolute; width: 100%; height: 100%;}
+#loading { display: none; position: absolute; width: 100%; height: 100%; background-color: rgba(0,0,0,0.2); z-index: 99}
 .loading {
 display: block !important;
+}
+
+.loading-spinner-container {
+  position: absolute;
+  right: 50%;
+  left: 50%;
+  top: 50%;
+  bottom: 50%;
+  transform: translate(-50%, -50%);
+  width: 96px;
+  background-color: white;
+  height: 96px;
+  padding: 16px;
+  display: flex;
+  justify-content: center;
+  align-content: center;
 }
 
 #snackbar {
@@ -72,6 +89,7 @@ li {
 }
 
 body {
+  background-color: var(--background);
   display: flex;
   flex-direction: column;
   height: 100vh;
@@ -89,9 +107,9 @@ main {
 }
 
 nav {
-  border-radius: 16px 16px 0 0;
-  background-color: var(--secondary);
-  padding: 16px;
+  box-shadow: 8px 4px 4px var(--accent);
+  background-color: #eeeef2;
+  padding: 8px;
   width: 100%;
   height: var(---height);
   z-index: 4;
@@ -102,5 +120,21 @@ nav > ul {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
+}
+
+.nav-item {
+  display: flex;
+  text-decoration: none;
+  flex-direction: column;
+  align-items: center;
+}
+
+.nav-item > img {
+  background-color: var(--background);
+  padding: 4px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  margin-bottom: 4px;
 }
 

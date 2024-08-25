@@ -29,8 +29,17 @@ async function removeProduct(id) {
   return db.collection("products").doc(id).update({deleted_at: new Date()});
 }
 
-async function listProducts() {
+async function listProducts(filter = {}) {
   const db = firebase.firestore();
-  return db.collection("products").where("deleted_at", "!=", null).get();
+
+  let colRef = db.collection("products")
+    .where("deleted_at", "==", null)
+    .orderBy("name", "asc")
+
+  if (filter.query) {
+    colRef = colRef.startAt(filter.query).endAt(filter.query + '\uf8ff');
+  }
+
+  return colRef.get();
 }
 
