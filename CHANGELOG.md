@@ -16,3 +16,4 @@ Follows the keep a changelog convention and semantic versioning.
 - creating a new product is now done via the sheet
 - search for products
 - login
+- highlight current page

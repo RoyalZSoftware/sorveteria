@@ -4,6 +4,7 @@
   --secondary: #dedcff;
   --accent: #433bff;
   --navbar-height: 96px;
+  --text: #050315;
 }
 
 #sheet {
@@ -32,7 +33,7 @@ div[sheet-content] {
 }
 
 * {
-  color: #050315;
+  color: var(--text);
   box-sizing: border-box;
   font-family: "Inter", sans-serif !important;
   margin: 0;
@@ -127,14 +128,14 @@ nav > ul {
   text-decoration: none;
   flex-direction: column;
   align-items: center;
+  font-size: 0.8rem;
+  stroke: var(--text);
 }
 
-.nav-item > img {
-  background-color: var(--background);
+.nav-item > svg {
   padding: 4px;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
+  width: 24px;
+  height: 24px;
   margin-bottom: 4px;
 }
 
