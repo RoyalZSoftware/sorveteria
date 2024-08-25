@@ -10,11 +10,8 @@
     cursor: pointer;
   }
 </style>
-<form onsubmit="uiAddProduct(event)">
-	<input type="text" id="product-name" />
-	<input type="submit" value="Erstellen"/>
-</form>
 <h1 i18n="page.productList"></h1>
+<button onclick="uiOpenCreateProduct()">New product</button>
 <ul id="products">
 </ul>
 
@@ -25,6 +22,9 @@ addTranslations({
   },
   prompts: {
     reallyDelete: "Ta certa para excluído {name}?"
+  },
+  buttons: {
+    create: 'Crair'
   },
   snackbars: {
     productRemoved: "O produto {name} foi excluído",
@@ -51,7 +51,7 @@ async function uiDelete(id, name) {
 }
 
 async function uiBuildConfirm(id, name) {
-  return h('div', {}, [translate('prompts.reallyDelete', {name}), h('button', {onclick: `uiDelete('${id}', '${name}')`}, ['Yes'])]);
+  return h('div', {}, [translate('prompts.reallyDelete', {name}), h('button', {onclick: `uiDelete('${id}', '${name}')`}, ['Sím'])]);
 }
 
 async function uiPromptDelete(id, name) {
@@ -67,8 +67,18 @@ async function uiPromptDelete(id, name) {
 function uiProductListItem(product) {
   return h('li', {class: "product-item", productName: product.name}, [
     product.name,
-    h('a', {onclick: 'uiPromptDelete("' + product.id + '", "' + product.name + '")'}, ["Delete"])
+    h('a', {onclick: 'uiPromptDelete("' + product.id + '", "' + product.name + '")'}, ["Excludío"])
   ]);
+}
+
+async function uiOpenCreateProduct() {
+  const component = h('div', {}, [h('form', {action: '#', onsubmit: "uiAddProduct(event)"}, [
+    h('input', {type: 'text', id: 'product-name'}, []),
+    h('input', {type: 'submit'}, [translate('buttons.create')])
+  ])]);
+  Sheet.render(component);
+  Sheet.expand();
+  Sheet.show();
 }
 
 async function uiAddProduct(e) {
@@ -80,6 +90,8 @@ async function uiAddProduct(e) {
     productName.value = "";
     Snackbar.open(translate("snackbars.productAdded", {name: product.name}));
     await uiRefresh();
+    Sheet.collapse();
+    Sheet.hide();
   } catch(e) {
     if (e === ProductNameIsInvalid)
       Snackbar.open(translate("snackbars.productNameInvalid"), undefined, SNACKBAR_ERROR);

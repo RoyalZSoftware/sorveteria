@@ -83,11 +83,13 @@ main {
   display: flex;
   flex-direction: column;
   flex-grow: 1;
+  overflow: hidden;
   padding: 16px;
-  height: calc(100vh - var(--navbar-height));
+  height: calc(100% - var(--navbar-height));
 }
 
 nav {
+  border-radius: 16px 16px 0 0;
   background-color: var(--secondary);
   padding: 16px;
   width: 100%;

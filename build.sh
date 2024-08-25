@@ -23,4 +23,5 @@ for file in src/*.js; do
   fi
 done
 
+cp -r assets dist
 cp "styles.css" dist/styles.css

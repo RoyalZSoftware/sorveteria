@@ -13,3 +13,4 @@ Follows the keep a changelog convention and semantic versioning.
 - snackbar
 - sheet for prompting
 - login guard
+- creating a new product is now done via the sheet
